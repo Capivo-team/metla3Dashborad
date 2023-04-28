@@ -17,18 +17,19 @@ export default function Login() {
       height={'100vh'}
       sx={{ background: '#1f2027' }}
       justifyContent={'center'}
+      lassName="forms-container"
     >
       <Container
         sx={{ display: 'flex', alignItems: 'center', maxHeight: '80vh' }}
         maxWidth="sm"
+        lassName="forms-container"
       >
         <Stack
+          className="forms-container"
           sx={{
             background: 'white',
-            padding: '50px 15px',
+            padding: formType ? '50px 15px' : '15px',
             borderRadius: '20px',
-            maxHeight: '90vh',
-            overflow: 'scroll',
           }}
           gap={'35px'}
           width={'100%'}

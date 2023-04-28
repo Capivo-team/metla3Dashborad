@@ -28,6 +28,7 @@ const SignupForm = ({ setIsLoading }) => {
         try {
           const user = await Signs.signup(signup)
           LangugeServices.setLang('en')
+          console.log(user)
           JwtService.setToken(user.data.token)
           setSignup(signup)
           setIsLoading(false)
@@ -35,10 +36,9 @@ const SignupForm = ({ setIsLoading }) => {
           setError('')
           dispatch(actions.register(user.data.data))
         } catch (error) {
-          console.log(error.response.data.message)
           setIsLoading(false)
 
-          setError(error.response.data.message) // طباعة الخطأ في وحدة التحكم
+          setError(error.response.data.error) // طباعة الخطأ في وحدة التحكم
         }
       })
       .catch((error) => {
@@ -48,42 +48,6 @@ const SignupForm = ({ setIsLoading }) => {
 
         setError(error.message)
       })
-
-    // await signupSchema
-    //   .validate({ ...signup })
-    //   .then(async () => {
-    //     try {
-    //       setIsLoading(true);
-    //       const { fullName, phoneNumber, password } = signup;
-    //       console.log({ fullName, phoneNumber, password });
-    //       Apiservices.post('/auth/register', {
-    //         fullName,
-    //         phoneNumber,
-    //         password,
-    //       }).then((res) => {
-    //         if (res.data.token) {
-    //           LangugeServices.setLang('en');
-    //           JwtService.setToken(res.data.token);
-    //           console.log(res.data.data);
-    //           dispatch(actions.register(res.data.data));
-    //           setSignup(signup);
-    //           setIsLoading(false);
-    //         } else {
-    //           setIsLoading(false);
-    //         }
-    //       });
-    //     } catch (error) {
-    //       console.log('catch 11111');
-    //       console.log(error);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setIsLoading(false);
-    //     console.log('catch 2222');
-    //     setError(err.message);
-    //     console.log(error);
-    //     console.log(err.message);
-    //   });
   }
   return (
     <>
@@ -93,7 +57,7 @@ const SignupForm = ({ setIsLoading }) => {
             <InputWithLabel
               value={signup}
               setValue={setSignup}
-              name={'fullName'}
+              name={'name'}
               type="text"
               labelText="Full Name"
               required
@@ -120,7 +84,7 @@ const SignupForm = ({ setIsLoading }) => {
               labelText="password"
               required
             />
-            <FromError message={error} name="password" />
+            <FromError message={error} name="stronger" />
           </Stack>
           <Stack sx={{ padding: '5px 25px 5px 15px' }}>
             <InputWithLabel
@@ -131,7 +95,8 @@ const SignupForm = ({ setIsLoading }) => {
               labelText="confirm password"
               required
             />
-            <FromError message={error} name="Confirm" />
+            <FromError message={error} name="match" />
+            <FromError message={error} name="Confirm " />
           </Stack>
 
           <Button

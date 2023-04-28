@@ -6,7 +6,7 @@ import store from './Redux'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import './i18n'
 import Charts from './pages/Charts'
-import Categories from './pages/Categories'
+import News from './pages/News'
 import Departments from './pages/Departments'
 import Farms from './pages/Farms'
 import Projects from './pages/Projects'
@@ -18,7 +18,7 @@ const router = createHashRouter([
     children: [
       { index: true, element: <Charts /> },
       // { path: '/Manufacturers', element: <Manufacturers /> },
-      { path: '/Categories', element: <Categories /> },
+      { path: '/news', element: <News /> },
       { path: '/Departments', element: <Departments /> },
       { path: '/Farms', element: <Farms /> },
       { path: '/Projects', element: <Projects /> },

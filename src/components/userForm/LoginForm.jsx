@@ -1,91 +1,85 @@
-import { useState } from 'react';
-import { Stack } from '@mui/system';
-import Button from '@mui/material/Button';
-import Apiservices from '../../services/ApiServices';
-import { useDispatch } from 'react-redux';
-import { actions } from '../../Redux';
-import JwtService from '../../services/TokenServices';
-import { useTranslation } from 'react-i18next';
-import LangugeServices from '../../services/LangugeServices';
-import { InputWithLabel } from '../custom/inputs';
-import { FromError } from '../custom/Error';
-import { loginSchema } from '../../validation/UserValidation';
+import { useState } from 'react'
+import { Stack } from '@mui/system'
+import Button from '@mui/material/Button'
+import Apiservices from '../../services/ApiServices'
+import { useDispatch } from 'react-redux'
+import { actions } from '../../Redux'
+import JwtService from '../../services/TokenServices'
+import { useTranslation } from 'react-i18next'
+import LangugeServices from '../../services/LangugeServices'
+import { InputWithLabel } from '../custom/inputs'
+import { FromError } from '../custom/Error'
+import { loginSchema } from '../../validation/UserValidation'
+import Signs from '../../Api/sign'
 
 function LoginForm({ setIsLoading }) {
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
 
   const i = {
     phoneNumber: '1234567890',
     password: '123456',
-  };
-  const [login, setLogin] = useState(i);
-  const { t } = useTranslation();
+  }
+  const [login, setLogin] = useState(i)
+  const { t } = useTranslation()
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const handelLogin = async (e) => {
-    e.preventDefault();
-    await loginSchema
+    e.preventDefault()
+    loginSchema
       .validate({ ...login })
       .then(async () => {
         try {
-          setIsLoading(true);
-          Apiservices.post('/auth/login', login).then((res) => {
-            if (res.data.token) {
-              LangugeServices.setLang('en');
-              JwtService.setToken(res.data.token);
-              dispatch(actions.login(res.data.data));
-              setLogin(login);
-              setIsLoading(false);
-            } else {
-              setIsLoading(false);
-            }
-          });
+          setIsLoading(true)
+          const user = await Signs.login(login)
+          dispatch(actions.login(user.data.data))
+          setLogin(login)
+          setIsLoading(false)
+          JwtService.setToken(user.data.token)
+          LangugeServices.setLang('en')
         } catch (error) {
-          console.log('catch 11111');
-          console.log(error);
+          setIsLoading(false)
+          setError(error.response.data.error) // طباعة الخطأ في وحدة التحكم
         }
       })
       .catch((error) => {
-        setIsLoading(false);
-        console.log('catch 2222');
-        setError(error.message);
-        console.log(error.message);
-      });
-  };
+        setIsLoading(false)
+        setError(error.message)
+      })
+  }
   return (
     <>
       <form
-        className='login'
+        className="login"
         onSubmit={handelLogin}
         style={{ width: '100%' }}
-        action=''
+        action=""
       >
-        <Stack className='login-form' gap={'20px'}>
+        <Stack className="login-form" gap={'20px'}>
           <Stack sx={{ padding: '5px 25px 5px 15px' }}>
             <InputWithLabel
               value={login}
               setValue={setLogin}
               name={'phoneNumber'}
-              type='text'
-              labelText='Number Phone'
+              type="text"
+              labelText="Number Phone"
               required
             />
-            <FromError message={error} name='phone' />
+            <FromError message={error} name="phone" />
           </Stack>
           <Stack sx={{ padding: '5px 25px 5px 15px' }}>
             <InputWithLabel
               value={login}
               setValue={setLogin}
               name={'password'}
-              type='password'
-              labelText='password'
+              type="password"
+              labelText="password"
               required
             />
-            <FromError message={error} name='password' />
+            <FromError message={error} name="password" />
           </Stack>
 
           <Button
-            type='submit'
+            type="submit"
             sx={{
               padding: '12px',
               borderRadius: '16px',
@@ -95,14 +89,14 @@ function LoginForm({ setIsLoading }) {
               fontSize: '16px',
               textTransform: 'capitalize',
             }}
-            variant='contained'
+            variant="contained"
           >
             Continue
           </Button>
         </Stack>
       </form>
     </>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm

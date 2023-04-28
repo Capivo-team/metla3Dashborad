@@ -11,24 +11,27 @@ function Data() {
       },
       {
         icon: './icons/users.png',
-        name: t('Categories'),
-        path: '/Categories',
-      },    {
+        name: t('News'),
+        path: '/news',
+      },
+      {
         icon: './icons/users.png',
         name: t('Departments'),
         path: '/Departments',
-      },  {
+      },
+      {
         icon: './icons/users.png',
         name: t('Farms'),
         path: '/Farms',
-      },  {
+      },
+      {
         icon: './icons/users.png',
         name: t('projects'),
         path: '/Projects',
       },
     ],
   }
-  
+
   return data
 }
 
