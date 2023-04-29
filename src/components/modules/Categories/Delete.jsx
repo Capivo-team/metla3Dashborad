@@ -12,6 +12,8 @@ import { actions } from '../../../Redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
+import News from '../../../Api/news'
+import Category from '../../../Api/category'
 export default function Delete({ id, setIsDeleted }) {
   const [open, setOpen] = React.useState(false)
   const dispatch = useDispatch()
@@ -27,20 +29,21 @@ export default function Delete({ id, setIsDeleted }) {
   const Manufacturers = useSelector((state) => state.Manufacturers)
 
   const [isLoading, setIsloading] = useState(false)
-  const handelDelete = () => {
+  const handelDelete = async () => {
     dispatch(actions.setIsUpdate())
 
     setIsloading(true)
+    const item = await Category.destroy(id)
 
-    Apiservices.delete(`Categories/${id}`).then((res) => {
-      setIsloading(false)
-      setIsDeleted(true)
-      dispatch(
-        actions.setManufacturers(Manufacturers.filter((e, i) => e._id !== id)),
-      )
+    // Apiservices.delete(`Categories/${id}`).then((res) => {
+    setIsloading(false)
+    setIsDeleted(true)
+    dispatch(
+      actions.setManufacturers(Manufacturers.filter((e, i) => e._id !== id)),
+    )
 
-      dispatch(actions.setIsUpdate())
-    })
+    dispatch(actions.setIsUpdate())
+    // })
     setOpen(false)
   }
   return (

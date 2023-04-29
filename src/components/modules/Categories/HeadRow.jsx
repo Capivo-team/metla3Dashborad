@@ -7,8 +7,7 @@ export default function Row() {
   const headRow = [
     '#',
     t('image'),
-    t('nameAr'),
-    t('nameEn'),
+    t('name'),
     t('actions'),
   ]
   return (

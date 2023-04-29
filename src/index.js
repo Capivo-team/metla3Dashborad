@@ -7,9 +7,7 @@ import { createHashRouter, RouterProvider } from 'react-router-dom'
 import './i18n'
 import Charts from './pages/Charts'
 import News from './pages/News'
-import Departments from './pages/Departments'
-import Farms from './pages/Farms'
-import Projects from './pages/Projects'
+import Categories from './pages/Categories'
 
 const router = createHashRouter([
   {
@@ -17,11 +15,8 @@ const router = createHashRouter([
     element: <App />,
     children: [
       { index: true, element: <Charts /> },
-      // { path: '/Manufacturers', element: <Manufacturers /> },
       { path: '/news', element: <News /> },
-      { path: '/Departments', element: <Departments /> },
-      { path: '/Farms', element: <Farms /> },
-      { path: '/Projects', element: <Projects /> },
+      { path: '/category', element: <Categories /> },
     ],
     // errorElement: <NotFound />,
   },

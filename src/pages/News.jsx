@@ -20,7 +20,8 @@ export default function News() {
   const handelChengeCount = async (e) => {
     const news = await NewsApi.get(e.target.value, 1)
     setCount(e.target.value)
-    setPages(news.data.pagination.maxDocuments)
+    console.log(news.data.pagination, e.target.value, 11111)
+    setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))
   }
   const Manufacturers = useSelector((state) => state.Manufacturers)

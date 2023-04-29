@@ -9,8 +9,8 @@ const countSlice = createSlice({
     isUpdate: false,
     activeLink: 0,
     isSearch: false,
-    Manufacturers:[],
-    isStacky:2
+    Manufacturers: [],
+    isStacky: 2,
   },
   reducers: {
     changeMode(state, action) {
@@ -39,11 +39,10 @@ const countSlice = createSlice({
     },
     setManufacturers(state, action) {
       state.Manufacturers = action.payload
-    }
-    ,
+    },
     setIsStacky(state, action) {
       state.isStacky = action.payload
-    }
+    },
   },
 })
 export const actions = countSlice.actions

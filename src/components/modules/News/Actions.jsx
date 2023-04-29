@@ -2,10 +2,10 @@ import { IconButton, Stack } from '@mui/material';
 import React from 'react';
 import Edit from './Edit';
 import Delete from './Delete';
-import Drawer from '../../tables/Products/AddDrower';
 import { actions } from '../../../Redux';
 import { useDispatch } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
+import { Drawer } from '../../custom/Drawer';
 
 export default function Actions({
   item,

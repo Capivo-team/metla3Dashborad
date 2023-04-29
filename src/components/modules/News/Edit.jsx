@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Dialog from '@mui/material/Dialog';
+import * as React from 'react'
+import Dialog from '@mui/material/Dialog'
 
 import {
   Button,
@@ -7,40 +7,54 @@ import {
   IconButton,
   Stack,
   TextField,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import Apiservices from '../../../services/ApiServices';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Upload from '../../Upload/Upload';
-import { actions } from '../../../Redux';
-import { useDispatch, useSelector } from 'react-redux';
-import Loading from '../../custom/loading';
+} from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import Apiservices from '../../../services/ApiServices'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import Upload from '../../Upload/Upload'
+import { actions } from '../../../Redux'
+import { useDispatch, useSelector } from 'react-redux'
+import Loading from '../../custom/loading'
+import { Input } from '../../custom/inputs'
+import News from '../../../Api/news'
+import { Newschema } from '../../../validation/NewsValidation'
+import { FromError } from '../../custom/Error'
 export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
-  const [base64Image, setBase64Image] = useState('');
+  const [base64Image, setBase64Image] = useState('')
 
-  const { t } = useTranslation();
-  const [item, setItem] = useState(ele);
+  const { t } = useTranslation()
+  const [item, setItem] = useState(ele)
+  const [error, setError] = useState('')
 
-  const [isloading, setIsLoading] = useState(false);
-  const handelEdit = () => {
-    setIsLoading(true);
-    const requestBody = new FormData();
+  const [isloading, setIsLoading] = useState(false)
+  const handelEdit = async () => {
+    Newschema.validate(item)
+      .then(async () => {
+        try {
+          setIsLoading(true)
 
-    requestBody.append('nameEN', item.nameEN);
-    requestBody.append('nameAR', item.nameAR);
-    requestBody.append('image', base64Image);
-    Apiservices.put(`/Categories/${id}`, requestBody)
-      .then((res) => {
-        setEle(res.data.data);
-        setIsLoading(false);
-        setIsDrawerOpen(false);
+          const requestBody = new FormData()
+          requestBody.append('title', item.title)
+          requestBody.append('description', item.description)
+          requestBody.append('image', base64Image)
+          const editNews = await News.put(id, requestBody)
+          setEle(editNews.data.data)
+          setIsLoading(false)
+          setIsDrawerOpen(false)
+        } catch (error) {
+          setIsLoading(false)
+          setError(error.response.data.error) // طباعة الخطأ في وحدة التحكم
+        }
       })
-      .catch((err) => console.log(err));
-  };
-  const lang = useSelector((state) => state.lang);
+      .catch((error) => {
+        setIsLoading(false)
+        setError(error.message)
+      })
+  }
+  const lang = useSelector((state) => state.lang)
 
   return (
     <Stack
@@ -57,34 +71,31 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
     >
       <Stack height={'100vh'} sx={{ overflowY: 'scroll' }}>
         <Stack>
-          <label className='col-form-label'>{t('nameEn')}</label>
-          <input
-            className='custom-input'
-            type='text'
-            value={item.nameEN}
-            onChange={(e) => setItem({ ...item, nameEN: e.target.value })}
-          />
+          <label className="col-form-label">{t('title')}</label>
+          <Input value={item} setValue={setItem} type={'text'} name={'title'} />
+          <FromError message={error} name="title" />
         </Stack>
         <div>
-          <label className='col-form-label'>{t('nameAr')}</label>
-          <input
-            className='custom-input'
-            type='text'
-            value={item.nameAR}
-            onChange={(e) => setItem({ ...item, nameAR: e.target.value })}
+          <label className="col-form-label">{t('description')}</label>
+          <Input
+            value={item}
+            setValue={setItem}
+            type={'text'}
+            name={'description'}
           />
+          <FromError message={error} name="description" />
         </div>
 
         <Stack gap={'20px'} margin={'20px 0'}>
-          <img src={item.image} alt='' />
+          <img src={item.image} alt="" />
           <Upload base64Image={base64Image} setBase64Image={setBase64Image} />
         </Stack>
       </Stack>
 
-      <button className='addButton' onClick={handelEdit} variant='contained'>
+      <button className="addButton" onClick={handelEdit} variant="contained">
         {t('update')}
       </button>
       {isloading && <Loading />}
     </Stack>
-  );
+  )
 }

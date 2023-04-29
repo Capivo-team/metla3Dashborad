@@ -1,34 +1,34 @@
-import { useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../../../Redux';
-import { IconButton, Stack } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { useRef, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { actions } from '../../../Redux'
+import { IconButton, Stack } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 
 export const Drawer = ({ items, isDrawerOpen, setIsDrawerOpen, button }) => {
-  const drawerRef = useRef(null);
-  const dispatch = useDispatch();
-  const lang = useSelector((e) => e.lang);
+  const drawerRef = useRef(null)
+  const dispatch = useDispatch()
+  const lang = useSelector((e) => e.lang)
 
   const handleClickOutside = (event) => {
     if (drawerRef.current && !drawerRef.current.contains(event.target)) {
-      setIsDrawerOpen(false);
+      setIsDrawerOpen(false)
       if (isDrawerOpen) {
-        dispatch(actions.setIsStacky(2));
+        dispatch(actions.setIsStacky(100))
       }
     }
-  };
+  }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <div>
-      {isDrawerOpen && <div className='screen-overlay'></div>}
+      {isDrawerOpen && <div className="screen-overlay"></div>}
       {button}
       <Stack
         sx={{ width: { sm: '350px', xs: '100%' } }}
@@ -55,5 +55,5 @@ export const Drawer = ({ items, isDrawerOpen, setIsDrawerOpen, button }) => {
         </IconButton>
       </Stack>
     </div>
-  );
-};
+  )
+}

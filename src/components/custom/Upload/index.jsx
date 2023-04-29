@@ -1,5 +1,6 @@
 import { Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function Upload({ base64Image, setBase64Image }) {
@@ -12,7 +13,7 @@ export default function Upload({ base64Image, setBase64Image }) {
 
   return (
     <div>
-      {selectedImage && (
+      {base64Image && (
         <img
           style={{ width: '80px', height: '80px', borderRadius: '12px' }}
           src={selectedImage}

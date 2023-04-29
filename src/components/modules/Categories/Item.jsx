@@ -42,17 +42,8 @@ export default function Item({ e, i }) {
             sx={{ color: 'var(--color-text)' }}
             align={i === 0 ? 'center' : 'center'}
           >
-            {item.nameAR}
+            {item.name && item.name.slice(0, 10)}...
           </Typography>
-
-          <Typography
-            width={'150px'}
-            sx={{ color: 'var(--color-text)' }}
-            align={i === 0 ? 'center' : 'center'}
-          >
-            {item.nameEN}
-          </Typography>
-         
 
           <Actions setIsDeleted={setIsDeleted} setItem={setItem} item={item} />
         </Stack>

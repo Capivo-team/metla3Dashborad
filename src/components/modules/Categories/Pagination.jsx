@@ -2,35 +2,36 @@ import {
   generateTestData,
   usePagination,
   Pagination,
-} from 'pagination-react-js';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../../../Redux';
-import category from '../../../Api/category';
+} from 'pagination-react-js'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { actions } from '../../../Redux'
+import category from '../../../Api/category'
+import News from '../../../Api/news'
+import Category from '../../../Api/category'
 
 const PaginationComponent = ({ pages, count, setPages }) => {
-  const { currentPage, entriesPerPage } = usePagination(1, 3);
-  const search = useSelector((state) => state.search);
-  const isSearch = useSelector((state) => state.isSearch);
-  const dispatch = useDispatch();
-  console.log(pages);
+  const { currentPage, entriesPerPage } = usePagination(1, 3)
+  const search = useSelector((state) => state.search)
+  const isSearch = useSelector((state) => state.isSearch)
+  const dispatch = useDispatch()
+  console.log(pages)
   const dataList = generateTestData(pages * 3.0, (i) => ({
     id: `Id${i}`,
     name: `Name${i}`,
-  }));
+  }))
   const getCategory = async () => {
-    const categories = await category.get(count);
-    setPages(categories.data.paginationResult.numberOfPages);
-    dispatch(actions.setManufacturers(categories.data.data));
-    dispatch(actions.setIsUpdate());
-  };
+    const news = await Category.get(count, currentPage.get)
+    setPages(news.data.pagination.pages)
+    dispatch(actions.setManufacturers(news.data.data))
+    dispatch(actions.setIsUpdate())
+  }
   useEffect(() => {
-    console.log(1);
-    dispatch(actions.setIsUpdate());
-    getCategory();
-  }, [currentPage.get, isSearch]);
+    dispatch(actions.setIsUpdate())
+    getCategory()
+  }, [currentPage.get, isSearch])
   return (
-    <div className='container'>
+    <div className="container">
       <Pagination
         entriesPerPage={entriesPerPage.get}
         totalEntries={dataList.length}
@@ -49,10 +50,10 @@ const PaginationComponent = ({ pages, count, setPages }) => {
         }}
         showFirstNumberAlways={true}
         showLastNumberAlways={true}
-        navStart='&#171;'
-        navEnd='&#187;'
-        navPrev='&#x2039;'
-        navNext='&#x203a;'
+        navStart="&#171;"
+        navEnd="&#187;"
+        navPrev="&#x2039;"
+        navNext="&#x203a;"
         navPrevCustom={{
           steps: 5,
           content: '\u00B7\u00B7\u00B7',
@@ -63,7 +64,7 @@ const PaginationComponent = ({ pages, count, setPages }) => {
         }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default PaginationComponent;
+export default PaginationComponent

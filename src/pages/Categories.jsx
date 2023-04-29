@@ -1,32 +1,29 @@
-import React from 'react';
-import Table from '../components/modules/Categories/Table';
-import { Stack, Typography } from '@mui/material';
-import UsePagination from '../components/modules/Categories/Pagination';
-import { useState } from 'react';
-import Apiservices from '../services/ApiServices';
-
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../Redux';
+import React from 'react'
+import Table from '../components/modules/Categories/Table'
+import { Stack, Typography } from '@mui/material'
+import UsePagination from '../components/modules/Categories/Pagination'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { actions } from '../Redux'
+import Category from '../Api/category'
 export default function Categories() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1)
 
-  const [pages, setPages] = useState(null);
-  const [count, setCount] = useState(5);
-  const dispatch = useDispatch();
+  const [pages, setPages] = useState(null)
+  const [count, setCount] = useState(5)
+  const dispatch = useDispatch()
 
-  const handelChengeCount = (e) => {
-    Apiservices.get(`/Categories`).then((res) => {
-      console.log(res);
-      setCount(e.target.value);
-      setPages(res.data.paginationResult.numberOfPages);
-      dispatch(actions.setManufacturers(res.data.data));
-    });
-  };
-  const Manufacturers = useSelector((state) => state.Manufacturers);
-  const [isEnd, setIsEnd] = useState(true);
+  const handelChengeCount = async (e) => {
+    const news = await Category.get(e.target.value, 1)
+    setCount(e.target.value)
+    setPages(news.data.pagination.pages)
+    dispatch(actions.setManufacturers(news.data.data))
+  }
+  const Manufacturers = useSelector((state) => state.Manufacturers)
+  const [isEnd, setIsEnd] = useState(true)
 
   return (
     <Stack width={'100%'} mt={'20px'}>
@@ -85,8 +82,8 @@ export default function Categories() {
                   height: '31px',
                 }}
                 onChange={handelChengeCount}
-                name='cars'
-                id='cars'
+                name="cars"
+                id="cars"
               >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -98,5 +95,5 @@ export default function Categories() {
         </Stack>
       </Stack>
     </Stack>
-  );
+  )
 }

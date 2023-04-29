@@ -1,32 +1,32 @@
-import * as React from 'react';
-import TableContainer from '@mui/material/TableContainer';
-import { Box, Stack, Typography } from '@mui/material';
-import Row from './HeadRow';
-import TestTable from './BodyTable';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import Rows from '../../skeleton/Rows';
-import Add from './Add';
-import { Drawer } from '../../custom/Drawer';
-import { actions } from '../../../Redux';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import * as React from 'react'
+import TableContainer from '@mui/material/TableContainer'
+import { Box, Stack, Typography } from '@mui/material'
+import Row from './HeadRow'
+import TestTable from './BodyTable'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import Rows from '../../skeleton/Rows'
+import Add from './Add'
+import { Drawer } from '../../custom/Drawer'
+import { actions } from '../../../Redux'
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 
 export default function BasicTable({ count }) {
-  const { t } = useTranslation();
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const dispatch = useDispatch();
+  const { t } = useTranslation()
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
+  const dispatch = useDispatch()
 
-  const isUpdate = useSelector((state) => state.isUpdate);
+  const isUpdate = useSelector((state) => state.isUpdate)
   const handleButtonClick = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-    dispatch(actions.setIsStacky(1));
-  };
+    setIsDrawerOpen(!isDrawerOpen)
+    dispatch(actions.setIsStacky(1))
+  }
   return (
     <TableContainer
       sx={{
         background: 'var(--background-table)',
       }}
-      className='table'
+      className="table"
     >
       <Stack
         sx={{
@@ -48,7 +48,7 @@ export default function BasicTable({ count }) {
             gap={'20px'}
           >
             <Stack gap={'10px'} alignItems={'center'} direction={'row'}>
-              <img style={{ width: '27px' }} src={'./icons/users.png'} alt='' />
+              <img style={{ width: '27px' }} src={'./icons/users.png'} alt="" />
               <Typography
                 sx={{
                   color: 'var(--color-text)',
@@ -56,7 +56,7 @@ export default function BasicTable({ count }) {
                   fontWeight: '900',
                 }}
               >
-                {t('Categories')}
+                {t('products')}
               </Typography>
             </Stack>
             <Box>
@@ -93,5 +93,5 @@ export default function BasicTable({ count }) {
         </Stack>
       </Stack>
     </TableContainer>
-  );
+  )
 }

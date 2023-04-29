@@ -16,18 +16,8 @@ function Data() {
       },
       {
         icon: './icons/users.png',
-        name: t('Departments'),
-        path: '/Departments',
-      },
-      {
-        icon: './icons/users.png',
-        name: t('Farms'),
-        path: '/Farms',
-      },
-      {
-        icon: './icons/users.png',
-        name: t('projects'),
-        path: '/Projects',
+        name: t('category'),
+        path: '/category',
       },
     ],
   }

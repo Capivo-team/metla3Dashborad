@@ -21,7 +21,7 @@ const PaginationComponent = ({ pages, count, setPages }) => {
   }))
   const getCategory = async () => {
     const news = await News.get(count, currentPage.get)
-    setPages(news.data.pagination.maxDocuments)
+    setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))
     dispatch(actions.setIsUpdate())
   }
