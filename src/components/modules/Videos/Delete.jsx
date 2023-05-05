@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import News from '../../../Api/news'
 import Category from '../../../Api/category'
+import Videos from '../../../Api/videos'
 export default function Delete({ id, setIsDeleted }) {
   const [open, setOpen] = React.useState(false)
   const dispatch = useDispatch()
@@ -33,7 +34,7 @@ export default function Delete({ id, setIsDeleted }) {
     dispatch(actions.setIsUpdate())
 
     setIsloading(true)
-    const item = await Category.destroy(id)
+    const item = await Videos.destroy(id)
 
     // Apiservices.delete(`Categories/${id}`).then((res) => {
     setIsloading(false)

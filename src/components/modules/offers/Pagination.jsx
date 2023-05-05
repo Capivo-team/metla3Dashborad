@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../../../Redux'
 import category from '../../../Api/category'
 import News from '../../../Api/news'
+import Category from '../../../Api/category'
+import Offers from '../../../Api/offers'
 
 const PaginationComponent = ({ pages, count, setPages }) => {
   const { currentPage, entriesPerPage } = usePagination(1, 3)
@@ -20,17 +22,16 @@ const PaginationComponent = ({ pages, count, setPages }) => {
     name: `Name${i}`,
   }))
   const getCategory = async () => {
-    const news = await News.get(count, currentPage.get)
+    const news = await Offers.get(count, currentPage.get)
     setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))
     dispatch(actions.setIsUpdate())
   }
-  const lang = useSelector((e) => e.lang)
   useEffect(() => {
-    console.log(currentPage.get, 11111111111)
     dispatch(actions.setIsUpdate())
     getCategory()
   }, [currentPage.get, isSearch])
+  const lang=useSelector(e=>e.lang)
   return (
     <div className="container">
       <Pagination

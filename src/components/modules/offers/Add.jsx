@@ -13,6 +13,8 @@ import { Newschema } from '../../../validation/NewsValidation'
 import { FromError } from '../../custom/Error'
 import Category from '../../../Api/category'
 import { Categoriesschema } from '../../../validation/CategoriesValidation'
+import Offers from '../../../Api/offers'
+import { Offersschema } from '../../../validation/OffersValidation'
 export default function Add({ total, setIsDrawerOpen }) {
   const dispatch = useDispatch()
   const Manufacturers = useSelector((state) => state.Manufacturers)
@@ -23,7 +25,8 @@ export default function Add({ total, setIsDrawerOpen }) {
 
   const { t } = useTranslation()
   const [item, setItem] = useState({
-    name: '',
+    offerName: '',
+    description: '',
   })
   const [error, setError] = useState('')
 
@@ -31,15 +34,16 @@ export default function Add({ total, setIsDrawerOpen }) {
     if (!base64Image) {
       setError('add image!')
     } else {
-      Categoriesschema.validate(item)
+      Offersschema.validate(item)
         .then(async () => {
           try {
             setIsLoading(true)
             const requestBody = new FormData()
-            requestBody.append('name', item.name)
-            requestBody.append('logo', base64Image)
+            requestBody.append('offerName', item.offerName)
+            requestBody.append('description', item.description)
+            requestBody.append('image', base64Image)
             setIsLoading(true)
-            const newItem = await Category.post(requestBody)
+            const newItem = await Offers.post(requestBody)
 
             setIsDrawerOpen(false)
             if (total > Manufacturers.length) {
@@ -84,9 +88,27 @@ export default function Add({ total, setIsDrawerOpen }) {
           <label className="col-form-label" htmlFor="nameEnglish">
             {t('name')}
           </label>
-          <Input value={item} setValue={setItem} type={'text'} name={'name'} />
+          <Input
+            value={item}
+            setValue={setItem}
+            type={'text'}
+            name={'offerName'}
+          />
           <FromError message={error} name="name" />
         </Stack>
+        <Stack>
+          <label className="col-form-label" htmlFor="nameEnglish">
+            {t('description')}
+          </label>
+          <Input
+            value={item}
+            setValue={setItem}
+            type={'text'}
+            name={'description'}
+          />
+          <FromError message={error} name="description" />
+        </Stack>
+
         <Stack>
           <Stack mt="35px">
             <Upload base64Image={base64Image} setBase64Image={setBase64Image} />

@@ -6,9 +6,7 @@ import {
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../../../Redux'
-import category from '../../../Api/category'
-import News from '../../../Api/news'
-import Category from '../../../Api/category'
+import Videos from '../../../Api/videos'
 
 const PaginationComponent = ({ pages, count, setPages }) => {
   const { currentPage, entriesPerPage } = usePagination(1, 3)
@@ -21,7 +19,7 @@ const PaginationComponent = ({ pages, count, setPages }) => {
     name: `Name${i}`,
   }))
   const getCategory = async () => {
-    const news = await Category.get(count, currentPage.get)
+    const news = await Videos.get(count, currentPage.get)
     setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))
     dispatch(actions.setIsUpdate())
@@ -30,6 +28,7 @@ const PaginationComponent = ({ pages, count, setPages }) => {
     dispatch(actions.setIsUpdate())
     getCategory()
   }, [currentPage.get, isSearch])
+  const lang = useSelector((e) => e.lang)
   return (
     <div className="container">
       <Pagination
@@ -43,8 +42,14 @@ const PaginationComponent = ({ pages, count, setPages }) => {
           itemActive: 'pagination-item-active',
           navPrev: 'pagination-item nav-item navPrev-item',
           navNext: 'pagination-item nav-item',
-          navStart: 'pagination-item nav-item navStart',
-          navEnd: 'pagination-item nav-item navEnd',
+          navStart:
+            lang === 'ltr'
+              ? 'pagination-item nav-item navStart'
+              : 'pagination-item nav-item start-rtl',
+          navEnd:
+            lang === 'ltr'
+              ? 'pagination-item nav-item navEnd'
+              : 'pagination-item nav-item end-rtl',
           navPrevCustom: 'pagination-item',
           navNextCustom: 'pagination-item',
         }}

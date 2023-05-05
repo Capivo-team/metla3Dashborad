@@ -1,13 +1,7 @@
 import * as React from 'react'
 import Dialog from '@mui/material/Dialog'
 
-import {
-  Button,
-  CircularProgress,
-  IconButton,
-  Stack,
-  TextField,
-} from '@mui/material'
+import { Stack, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Upload from '../../custom/Upload'
@@ -18,6 +12,8 @@ import { Input } from '../../custom/inputs'
 import News from '../../../Api/news'
 import { Newschema } from '../../../validation/NewsValidation'
 import { FromError } from '../../custom/Error'
+import Questions from '../../../Api/questions'
+import { Questionschema } from '../../../validation/QuestionsValidation'
 export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
   const [open, setOpen] = React.useState(false)
 
@@ -29,16 +25,12 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
 
   const [isloading, setIsLoading] = useState(false)
   const handelEdit = async () => {
-    Newschema.validate(item)
+    Questionschema.validate(item)
       .then(async () => {
         try {
           setIsLoading(true)
 
-          const requestBody = new FormData()
-          requestBody.append('title', item.title)
-          requestBody.append('description', item.description)
-          requestBody.append('image', base64Image)
-          const editNews = await News.put(id, requestBody)
+          const editNews = await Questions.put(id, item)
           setEle(editNews.data.data)
           setIsLoading(false)
           setIsDrawerOpen(false)
@@ -69,25 +61,25 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
     >
       <Stack height={'100vh'} sx={{ overflowY: 'scroll' }}>
         <Stack>
-          <label className="col-form-label">{t('title')}</label>
-          <Input value={item} setValue={setItem} type={'text'} name={'title'} />
-          <FromError message={error} name="title" />
-        </Stack>
-        <div>
-          <label className="col-form-label">{t('description')}</label>
+          <label className="col-form-label">{t('question')}</label>
           <Input
             value={item}
             setValue={setItem}
             type={'text'}
-            name={'description'}
+            name={'question'}
           />
-          <FromError message={error} name="description" />
-        </div>
-
-        <Stack gap={'20px'} margin={'20px 0'}>
-          <img src={item.image} alt="" />
-          <Upload base64Image={base64Image} setBase64Image={setBase64Image} />
+          <FromError message={error} name="question" />
         </Stack>
+        <div>
+          <label className="col-form-label">{t('answer')}</label>
+          <Input
+            value={item}
+            setValue={setItem}
+            type={'text'}
+            name={'answer'}
+          />
+          <FromError message={error} name="answer" />
+        </div>
       </Stack>
 
       <button className="addButton" onClick={handelEdit} variant="contained">

@@ -4,12 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 export default function Row() {
   const { t } = useTranslation()
-  const headRow = [
-    '#',
-    t('image'),
-    t('name'),
-    t('actions'),
-  ]
+  const headRow = ['#', t('suggestion'), t('actions')]
   return (
     <Stack
       sx={{
@@ -32,7 +27,7 @@ export default function Row() {
             }}
             align={i === 0 ? 'center' : 'center'}
           >
-            {e} 
+            {e}
           </Typography>
         </Stack>
       ))}

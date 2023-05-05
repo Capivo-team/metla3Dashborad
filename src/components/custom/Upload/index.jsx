@@ -2,6 +2,7 @@ import { Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 export default function Upload({ base64Image, setBase64Image }) {
   const [selectedImage, setSelectedImage] = useState(null)
@@ -10,7 +11,7 @@ export default function Upload({ base64Image, setBase64Image }) {
     setBase64Image(event.target.files[0])
   }
   const { t } = useTranslation()
-
+  const lang = useSelector((e) => e.lang)
   return (
     <div>
       {base64Image && (
@@ -32,13 +33,16 @@ export default function Upload({ base64Image, setBase64Image }) {
             padding: '5px 10px',
             background: '#dce0e3',
             minWidth: '120px',
-            borderRadius: '1rem 0 0 1rem',
+            borderRadius: lang === 'ltr' ? '1rem 0 0 1rem' : '0 20px 20px 0px',
           }}
         >
           Choose File
         </Typography>
         <Typography
-          sx={{ borderRadius: '0 1rem 1rem 0' }}
+          sx={{
+            borderRadius:
+              lang === 'ltr' ? '0px 20px 20px 0' : '20px 0px 0px 20px',
+          }}
           className="custom-input"
         >
           no file selected

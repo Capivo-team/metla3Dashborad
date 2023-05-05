@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../../../Redux'
 import category from '../../../Api/category'
 import News from '../../../Api/news'
+import Company from '../../../Api/company'
 
 const PaginationComponent = ({ pages, count, setPages }) => {
   const { currentPage, entriesPerPage } = usePagination(1, 3)
@@ -20,12 +21,12 @@ const PaginationComponent = ({ pages, count, setPages }) => {
     name: `Name${i}`,
   }))
   const getCategory = async () => {
-    const news = await News.get(count, currentPage.get)
+    const news = await Company.get(count, currentPage.get)
     setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))
     dispatch(actions.setIsUpdate())
   }
-  const lang = useSelector((e) => e.lang)
+  const lang=useSelector(e=>e.lang)
   useEffect(() => {
     console.log(currentPage.get, 11111111111)
     dispatch(actions.setIsUpdate())
@@ -45,13 +46,13 @@ const PaginationComponent = ({ pages, count, setPages }) => {
           navPrev: 'pagination-item nav-item navPrev-item',
           navNext: 'pagination-item nav-item',
           navStart:
-            lang === 'ltr'
-              ? 'pagination-item nav-item navStart'
-              : 'pagination-item nav-item start-rtl',
-          navEnd:
-            lang === 'ltr'
-              ? 'pagination-item nav-item navEnd'
-              : 'pagination-item nav-item end-rtl',
+          lang === 'ltr'
+            ? 'pagination-item nav-item navStart'
+            : 'pagination-item nav-item start-rtl',
+        navEnd:
+          lang === 'ltr'
+            ? 'pagination-item nav-item navEnd'
+            : 'pagination-item nav-item end-rtl',
           navPrevCustom: 'pagination-item',
           navNextCustom: 'pagination-item',
         }}

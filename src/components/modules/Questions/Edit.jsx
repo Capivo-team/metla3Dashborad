@@ -1,18 +1,10 @@
 import * as React from 'react'
 import Dialog from '@mui/material/Dialog'
 
-import {
-  Button,
-  CircularProgress,
-  IconButton,
-  Stack,
-  TextField,
-} from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import Apiservices from '../../../services/ApiServices'
+import { Stack, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Upload from '../../Upload/Upload'
+import Upload from '../../custom/Upload'
 import { actions } from '../../../Redux'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../custom/loading'
@@ -20,8 +12,8 @@ import { Input } from '../../custom/inputs'
 import News from '../../../Api/news'
 import { Newschema } from '../../../validation/NewsValidation'
 import { FromError } from '../../custom/Error'
-import { Categoriesschema } from '../../../validation/CategoriesValidation'
-import Category from '../../../Api/category'
+import Questions from '../../../Api/questions'
+import { Questionschema } from '../../../validation/QuestionsValidation'
 export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
   const [open, setOpen] = React.useState(false)
 
@@ -33,15 +25,12 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
 
   const [isloading, setIsLoading] = useState(false)
   const handelEdit = async () => {
-    Categoriesschema.validate(item)
+    Questionschema.validate(item)
       .then(async () => {
         try {
           setIsLoading(true)
 
-          const requestBody = new FormData()
-          requestBody.append('name', item.name)
-          requestBody.append('logo', base64Image)
-          const editNews = await Category.put(id, requestBody)
+          const editNews = await Questions.put(id, item)
           setEle(editNews.data.data)
           setIsLoading(false)
           setIsDrawerOpen(false)
@@ -72,15 +61,25 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
     >
       <Stack height={'100vh'} sx={{ overflowY: 'scroll' }}>
         <Stack>
-          <label className="col-form-label">{t('title')}</label>
-          <Input value={item} setValue={setItem} type={'text'} name={'name'} />
-          <FromError message={error} name="name" />
+          <label className="col-form-label">{t('question')}</label>
+          <Input
+            value={item}
+            setValue={setItem}
+            type={'text'}
+            name={'question'}
+          />
+          <FromError message={error} name="question" />
         </Stack>
-
-        <Stack gap={'20px'} margin={'20px 0'}>
-          <img src={item.image || item.logo} alt="" />
-          <Upload base64Image={base64Image} setBase64Image={setBase64Image} />
-        </Stack>
+        <div>
+          <label className="col-form-label">{t('answer')}</label>
+          <Input
+            value={item}
+            setValue={setItem}
+            type={'text'}
+            name={'answer'}
+          />
+          <FromError message={error} name="answer" />
+        </div>
       </Stack>
 
       <button className="addButton" onClick={handelEdit} variant="contained">

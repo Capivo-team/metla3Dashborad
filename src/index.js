@@ -8,6 +8,12 @@ import './i18n'
 import Charts from './pages/Charts'
 import News from './pages/News'
 import Categories from './pages/Categories'
+import Videos from './pages/Videos'
+import Offers from './pages/Offers'
+import Questions from './pages/Questions'
+import Suggestions from './pages/Suggestions'
+import Exchange from './pages/Exchange'
+import Company from './pages/Company'
 
 const router = createHashRouter([
   {
@@ -17,10 +23,17 @@ const router = createHashRouter([
       { index: true, element: <Charts /> },
       { path: '/news', element: <News /> },
       { path: '/category', element: <Categories /> },
+      { path: '/videos', element: <Videos /> },
+      { path: '/offers', element: <Offers /> },
+      { path: '/questions', element: <Questions /> },
+      { path: '/suggestions', element: <Suggestions /> },
+      { path: '/exchange', element: <Exchange /> },
+      { path: '/company', element: <Company /> },
     ],
     // errorElement: <NotFound />,
   },
 ])
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>

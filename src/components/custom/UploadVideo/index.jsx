@@ -1,5 +1,6 @@
 import { Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function Upload({ base64Image, setBase64Image }) {
@@ -12,13 +13,7 @@ export default function Upload({ base64Image, setBase64Image }) {
 
   return (
     <div>
-      {selectedImage && (
-        <img
-          style={{ width: '80px', height: '80px', borderRadius: '12px' }}
-          src={selectedImage}
-          alt=""
-        />
-      )}
+      {base64Image && <video controls src={selectedImage}></video>}
       <Stack
         direction={'row'}
         alignItems={'center'}
@@ -51,7 +46,7 @@ export default function Upload({ base64Image, setBase64Image }) {
             right: '0',
             width: '100%',
           }}
-          accept="image/*"
+          // accept="image/*"
           onChange={handleImageChange}
           multiple
           type="file"

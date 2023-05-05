@@ -1,14 +1,13 @@
 import React from 'react'
-import Table from '../components/modules/News/Table'
+import Table from '../components/modules/Videos/Table'
 import { Stack, Typography } from '@mui/material'
-import UsePagination from '../components/modules/News/Pagination'
+import UsePagination from '../components/modules/Videos/Pagination'
 import { useState } from 'react'
-import Apiservices from '../services/ApiServices'
-import NewsApi from '../Api/news'
+import VideosApi from '../Api/videos'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../Redux'
-export default function News() {
+export default function Videos() {
   const { t } = useTranslation()
 
   const [page, setPage] = useState(1)
@@ -18,7 +17,7 @@ export default function News() {
   const dispatch = useDispatch()
 
   const handelChengeCount = async (e) => {
-    const news = await NewsApi.get(e.target.value, 1)
+    const news = await VideosApi.get(e.target.value, 1)
     setCount(e.target.value)
     setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))

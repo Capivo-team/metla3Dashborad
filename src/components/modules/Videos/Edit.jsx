@@ -1,27 +1,25 @@
 import * as React from 'react'
 import Dialog from '@mui/material/Dialog'
 
-import {
-  Button,
-  CircularProgress,
-  IconButton,
-  Stack,
-  TextField,
-} from '@mui/material'
+import { Stack } from '@mui/material'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Upload from '../../custom/Upload'
-import { actions } from '../../../Redux'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../custom/loading'
 import { Input } from '../../custom/inputs'
-import News from '../../../Api/news'
-import { Newschema } from '../../../validation/NewsValidation'
 import { FromError } from '../../custom/Error'
+import { Categoriesschema } from '../../../validation/CategoriesValidation'
+import Category from '../../../Api/category'
+import UploadVideo from '../../custom/UploadVideo'
+import { Vidupschema } from '../../../validation/ViduoValidation'
+import Videos from '../../../Api/videos'
+
 export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
   const [open, setOpen] = React.useState(false)
 
   const [base64Image, setBase64Image] = useState('')
+  const [video, setVideo] = useState('')
 
   const { t } = useTranslation()
   const [item, setItem] = useState(ele)
@@ -29,16 +27,16 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
 
   const [isloading, setIsLoading] = useState(false)
   const handelEdit = async () => {
-    Newschema.validate(item)
+    Vidupschema.validate(item)
       .then(async () => {
         try {
           setIsLoading(true)
 
           const requestBody = new FormData()
           requestBody.append('title', item.title)
-          requestBody.append('description', item.description)
           requestBody.append('image', base64Image)
-          const editNews = await News.put(id, requestBody)
+          requestBody.append('video', video)
+          const editNews = await Videos.put(id, requestBody)
           setEle(editNews.data.data)
           setIsLoading(false)
           setIsDrawerOpen(false)
@@ -69,24 +67,42 @@ export default function Edit({ id, setEle, ele, setIsDrawerOpen }) {
     >
       <Stack height={'100vh'} sx={{ overflowY: 'scroll' }}>
         <Stack>
-          <label className="col-form-label">{t('title')}</label>
+          <label style={{ textAlign: 'start' }} className="col-form-label">
+            {t('title')}
+          </label>
           <Input value={item} setValue={setItem} type={'text'} name={'title'} />
           <FromError message={error} name="title" />
         </Stack>
-        <div>
-          <label className="col-form-label">{t('description')}</label>
-          <Input
-            value={item}
-            setValue={setItem}
-            type={'text'}
-            name={'description'}
-          />
-          <FromError message={error} name="description" />
-        </div>
 
         <Stack gap={'20px'} margin={'20px 0'}>
-          <img src={item.image} alt="" />
+          {!base64Image && (
+            <img
+              style={{ width: '80px', height: '80px', borderRadius: '12px' }}
+              src={item.image || item.logo}
+              alt=""
+            />
+          )}
+
           <Upload base64Image={base64Image} setBase64Image={setBase64Image} />
+        </Stack>
+        <Stack>
+          <Stack mt="35px">
+            {!video && (
+              <video
+                style={{
+                  width: '150px',
+                  height: '150px',
+                  borderRadius: '12px',
+                  marginBottom: '20px',
+                }}
+                controls
+                src={item.video}
+              ></video>
+            )}
+
+            <UploadVideo base64Image={video} setBase64Image={setVideo} />
+          </Stack>
+          <FromError message={error} name="image" />
         </Stack>
       </Stack>
 

@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-
 function Data() {
   const { t } = useTranslation()
   const data = {
@@ -18,6 +17,41 @@ function Data() {
         icon: './icons/users.png',
         name: t('category'),
         path: '/category',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('videos'),
+        path: '/videos',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('offers'),
+        path: '/offers',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('events'),
+        path: '/events',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('questions'),
+        path: '/questions',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('suggestions'),
+        path: '/suggestions',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('exchange'),
+        path: '/exchange',
+      },
+      {
+        icon: './icons/users.png',
+        name: t('company'),
+        path: '/company',
       },
     ],
   }

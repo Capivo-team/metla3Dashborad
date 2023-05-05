@@ -34,15 +34,21 @@ export default function Item({ e, i }) {
           >
             {i + 1}
           </Typography>
-          <Stack alignItems={'center'} minWidth={'150px'}>
-            <Avatar src={item.image} alt="" />
-          </Stack>
+
           <Typography
             width={'150px'}
             sx={{ color: 'var(--color-text)' }}
             align={i === 0 ? 'center' : 'center'}
           >
-            {item.name && item.name.slice(0, 10)}...
+            {item.question && item.question}
+          </Typography>
+
+          <Typography
+            width={'150px'}
+            sx={{ color: 'var(--color-text)' }}
+            align={i === 0 ? 'center' : 'center'}
+          >
+            {item.answer && item.answer}
           </Typography>
 
           <Actions setIsDeleted={setIsDeleted} setItem={setItem} item={item} />

@@ -208,7 +208,12 @@ body{
 label {
   cursor: default;
 }
-
+.start-rtl{
+  border-radius: 0 20px 20px 0;
+}
+.end-rtl{
+  border-radius: 20px 0px 0px 20px;
+}
 .custom-input {
   -webkit-appearance: none;
   appearance: none;
