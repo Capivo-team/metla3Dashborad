@@ -9,6 +9,7 @@ import { actions } from '../../../Redux'
 import category from '../../../Api/category'
 import News from '../../../Api/news'
 import Questions from '../../../Api/questions'
+import ImagesApi from '../../../Api/Images'
 
 const PaginationComponent = ({ pages, count, setPages }) => {
   const { currentPage, entriesPerPage } = usePagination(1, 3)
@@ -21,12 +22,14 @@ const PaginationComponent = ({ pages, count, setPages }) => {
     name: `Name${i}`,
   }))
   const getCategory = async () => {
-    const news = await Questions.get(count, currentPage.get)
+    const news = await ImagesApi.get(count, currentPage.get)
+    console.log(111)
     setPages(news.data.pagination.pages)
     dispatch(actions.setManufacturers(news.data.data))
     dispatch(actions.setIsUpdate())
   }
   useEffect(() => {
+    console.log(currentPage.get, 11111111111)
     dispatch(actions.setIsUpdate())
     getCategory()
   }, [currentPage.get, isSearch])

@@ -1,0 +1,60 @@
+{
+  "dashboard":"لوحة التحكم",
+  "customers":"العملاء",
+  "search":"بحث",
+  "products":"جديد",
+  "addProduct":"اضافة جديد",
+  "admins":"المدراء",
+  "merchants":"التجار",
+  "addMerchant":"اضافة تاجر",
+  "addFactory":"اضافة مصنع",
+  "factorys":"المصانع",
+  "setting":"الإعدادات",
+  "logout":"تسجيل خروج",
+  "logo":"الشعار",
+  "name":"الاسم",
+  "category":"الفئه",
+  "description":"الوصف",
+  "price":"السعر",
+  "actions":"إجراءات",
+  "email":"البريد الكتروني",
+  "phoneNum":"رقم الهاتف",
+  "personalName":"الاسم الشخصي",
+  "address":"العنوان",
+  "password":"كلمة السر",
+  "uploadImg":"رفع صوره",
+  "industry":"صناعة",
+  "quantity":"الكميه",
+  "size":"الحجم",
+  "trader":"التاجر",
+  "signin":"تسجيل الدخول",
+  "signinNow":"سجل الأن",
+  "blockMsg":"هل أنت متأكد من حظر المستخدم؟",
+  "blockWarning":"إذا قمت بالتأكيد ، فلن يتمكن المستخدم من دخول البوابة  ",
+  "deleteMsg":"هل أنت متأكد من حذف هذا المنتج؟",
+  "deleteWarning":"إذا قمت بتأكيد الحذف ، فلن تتمكن من التراجع عن هذا",
+  "disagree":"رفض",
+  "confirm":"قبول",
+  "openMsg":"رفع الحظر",
+  "openWarning":"إن قمت بالموافقه سيستطيع المستخدم دخول البوابه مره اخرى",
+  "tradeName":"الإسم التجاري",
+  "images":"الصور",
+  "categories":"فئات",
+  "videos":"فيديوهات",
+  "video":"فيديو",
+  "company":"شركات",
+  "offers":"عروض",
+  "title":"عنوان",
+  "image":"صوره",
+  "Offers":"عروض"
+  ,  "Companes":"شركات"
+  ,  "addCategories":"اضافة فئة"
+  ,  "addCompany":"اضافة شركه"
+  ,  "addOffer":"اضافة عرض"
+  ,  "addVideos":"اضافة فيديو"
+
+
+
+
+
+}

@@ -53,6 +53,11 @@ function Data() {
         name: t('company'),
         path: '/company',
       },
+      {
+        icon: './icons/users.png',
+        name: t('sliders'),
+        path: '/sliders',
+      },
     ],
   }
 

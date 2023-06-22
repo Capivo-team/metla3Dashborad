@@ -14,6 +14,7 @@ import Questions from './pages/Questions'
 import Suggestions from './pages/Suggestions'
 import Exchange from './pages/Exchange'
 import Company from './pages/Company'
+import Sliders from './pages/Sliders'
 
 const router = createHashRouter([
   {
@@ -29,6 +30,7 @@ const router = createHashRouter([
       { path: '/suggestions', element: <Suggestions /> },
       { path: '/exchange', element: <Exchange /> },
       { path: '/company', element: <Company /> },
+      { path: '/sliders', element: <Sliders /> },
     ],
     // errorElement: <NotFound />,
   },

@@ -36,6 +36,7 @@ export default function Items() {
     >
       <Stack
         height={{ sm: '97.5vh', xs: '100vh' }}
+        overflow={'scroll'}
         width={{ sm: isActive ? '195px' : 'auto', xs: '195px' }}
         sx={{
           background: 'var(--barside-color)',
@@ -54,7 +55,7 @@ export default function Items() {
               <Box>
                 <img
                   style={{ width: '80px', marginTop: '5px' }}
-                  src="https://logos-world.net/wp-content/uploads/2020/04/Huawei-Logo-700x394.png"
+                  src="./icons/logo.png"
                   alt=""
                 />{' '}
               </Box>
@@ -62,7 +63,7 @@ export default function Items() {
               <Box sx={{ transform: 'rotateY(180deg)' }}>
                 <img
                   style={{ width: '80px', marginTop: '5px' }}
-                  src="https://logos-world.net/wp-content/uploads/2020/04/Huawei-Logo-700x394.png"
+                  src="./icons/logo.png"
                   alt=""
                 />{' '}
               </Box>

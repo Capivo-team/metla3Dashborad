@@ -36,8 +36,8 @@ export default function Login() {
           alignItems={'center'}
         >
           <img
-            style={{ width: formType ? '200px' : '120px' }}
-            src="https://logos-world.net/wp-content/uploads/2020/04/Huawei-Logo-700x394.png"
+            style={{ width: formType ? '120px' : '120px' }}
+            src="./logo.png"
             alt=""
           />
           <Stack gap={'5px'} alignItems={'center'}>

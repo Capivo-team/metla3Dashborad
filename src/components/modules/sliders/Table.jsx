@@ -56,7 +56,7 @@ export default function BasicTable({ count }) {
                   fontWeight: '900',
                 }}
               >
-                {t('sliders')}
+                {t('products')}
               </Typography>
             </Stack>
             <Box>

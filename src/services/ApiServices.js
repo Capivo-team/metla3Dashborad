@@ -3,7 +3,7 @@ import JwtService from './TokenServices'
 import LangugeServices from './LangugeServices'
 
 const Apiservices = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: `https://dolphin-app-792st.ondigitalocean.app/api/v1`,
   // withCredentials: true,
 })
 

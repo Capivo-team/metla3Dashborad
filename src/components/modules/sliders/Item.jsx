@@ -14,6 +14,7 @@ export default function Item({ e, i }) {
     setOpen(true)
   }
   const [item, setItem] = useState(e)
+  console.log(item, 111)
   return (
     <>
       {!isDeleted && (
@@ -32,36 +33,15 @@ export default function Item({ e, i }) {
           direction={'row'}
           key={i}
         >
-          <Typography
-            onClick={openPopUP}
-            minWidth={'40px'}
-            sx={{ color: 'var(--color-text)' }}
-            align={i === 0 ? 'center' : 'center'}
-          >
-            {i + 1}
-          </Typography>
-
-          <Typography
-            onClick={openPopUP}
-            width={'150px'}
-            sx={{ color: 'var(--color-text)' }}
-            align={i === 0 ? 'center' : 'center'}
-          >
-            {item.question && item.question}
-          </Typography>
-
-          <Typography
-            onClick={openPopUP}
-            width={'150px'}
-            sx={{ color: 'var(--color-text)' }}
-            align={i === 0 ? 'center' : 'center'}
-          >
-            {item.answer && item.answer}
-          </Typography>
-
+          <img
+            style={{ width: '200px', borderRadius: '20px' }}
+            src={e.image}
+            alt=""
+          />
           <Actions setIsDeleted={setIsDeleted} setItem={setItem} item={item} />
         </Stack>
       )}
+
       <PopUp
         open={open}
         children={<Children item={item} />}
